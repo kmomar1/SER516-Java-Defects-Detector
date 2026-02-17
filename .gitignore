@@ -89,3 +89,6 @@ pids/
 tmp/
 temp/
 repos/
+
+# Mac Files
+.DS_Store
