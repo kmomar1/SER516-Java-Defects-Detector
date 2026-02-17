@@ -46,4 +46,5 @@ backend/
 > [!NOTE]  
 > Make sure you run the backend to use the backend
 
-To use the frontend just open `index.html` in a web browser. 
+Please use the command: `npx http-server . -p 3000` while in the frontend directory
+
