@@ -42,3 +42,8 @@ backend/
 | PORT     | Server port | 8080    |
 
 # Frontend
+
+> [!NOTE]  
+> Make sure you run the backend to use the backend
+
+To use the frontend just open `index.html` in a web browser. 
