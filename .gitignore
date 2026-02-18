@@ -115,7 +115,7 @@ pids/
 # Temporary folders
 tmp/
 temp/
-repos/
+target-repo/
 
 # Mac Files
 .DS_Store
