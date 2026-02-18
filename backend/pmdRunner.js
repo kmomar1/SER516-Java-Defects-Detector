@@ -1,35 +1,33 @@
-const { exec } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+import shell from "shelljs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-function runPMD() {
-    return new Promise((resolve, reject) => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-        const pmdPath = path.join(__dirname, "..", "pmd");
-        const reportPath = path.join(pmdPath, "out", "pmd-report.json");
+export const runPMD = async () => {
+  try {
+    const repoPath = path.join(__dirname, "target-repo");
 
-        // Run docker compose
-        exec("docker compose up --abort-on-container-exit", { cwd: pmdPath }, (error, stdout, stderr) => {
+    if (!shell.test("-d", repoPath)) {
+      throw new Error("target-repo folder does not exist.");
+    }
 
-            if (error && error.code !== 4) {
-                return reject(`Docker execution failed: ${stderr}`);
-            }
+    console.log("Running PMD analysis...");
 
-            // Read generated JSON report
-            fs.readFile(reportPath, "utf8", (err, data) => {
-                if (err) {
-                    return reject("Could not read PMD report.");
-                }
+    const command = `docker run --rm -v "${repoPath}:/src" ghcr.io/pmd/pmd:latest check -d /src -R rulesets/java/quickstart.xml -f json`;
 
-                try {
-                    const json = JSON.parse(data);
-                    resolve(json);
-                } catch (parseError) {
-                    reject("Invalid JSON in PMD report.");
-                }
-            });
-        });
-    });
-}
+    const result = shell.exec(command);
 
-module.exports = runPMD;
+    if (result.code !== 0 && result.code !== 4) {
+      throw new Error(result.stderr || "Unknown PMD error");
+    }
+
+    console.log("PMD analysis complete.");
+
+    return result.stdout;
+
+  } catch (error) {
+    throw new Error(`PMD analysis failed: ${error.message}`);
+  }
+};
