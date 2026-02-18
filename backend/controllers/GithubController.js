@@ -3,8 +3,7 @@ import shell from 'shelljs';
 
 export const cloneRepo = (req, res) => {
     const githubLink = req.body.github_link;
-    const repoName = githubLink.split('/').pop();
-    const repoPath = `./repos/${repoName}`;
+    const repoPath = `./target-repo`;
 
     //Need to change it later to add the repo to the volume of the container
     if (shell.exec(`git clone ${githubLink} ${repoPath}`).code !== 0){
