@@ -3,6 +3,8 @@ services:
     build: ./backend
     ports:
       - "8080:8080"
+    volumes:
+    - workdata:/app/work
 
   frontend:
     build: ./frontend
@@ -10,3 +12,6 @@ services:
       - "3000:80"
     depends_on:
       - backend
+
+  volumes:
+    workdata:
