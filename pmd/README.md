@@ -1,6 +1,6 @@
 # PMD Runner (Group 7)
 
-This folder provides a cross-platform way to run PMD on a Java codebase using Docker. This is for developers' understanding only and not a necessity for the user. This module runs PMD inside Docker and outputs a JSON report. It is designed to work the same on macOS and Windows.
+This folder provides a dev tool, and cross-platform way to run PMD manually on a Java codebase using Docker. This is for developers' understanding only and not a necessity for the user. This module runs PMD inside Docker and outputs a JSON report. It is designed to work the same on macOS and Windows.
 
 ## Requirements
 - Docker Desktop installed and running
