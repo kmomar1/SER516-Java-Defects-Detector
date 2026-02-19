@@ -1,5 +1,27 @@
 # SER516 Java Defects Detector
 
+## Run Frontend + Backend (Docker)
+
+### Requirements
+- Docker Desktop installed and running
+
+### Start
+```bash
+docker compose up --build
+```
+
+### URLs
+
+- Frontend UI: `http://localhost:3000`
+
+- Backend API: `http://localhost:8080/api`
+
+### Notes
+
+- Frontend is served by nginx in a container.
+
+- nginx proxies `/api/*` requests to the backend container.
+
 # Backend
 
 Backend server for the Java Defects Detector application, built with Node.js and Express.
