@@ -37,8 +37,23 @@ backend/
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| PORT     | Server port | 8080    |
+| Variable | Description  | Default |
+|----------|--------------|---------|
+| PORT     | Server port  | 8080    |
+| PORT     | Frontend Port| 80      |
 
 # Frontend
+> [!NOTE]
+> For the frontend to work the backend must be running.
+
+
+## Docker
+
+run `compose up --build` to run both the backend and the frontend
+**Note** Port 80 is needed to run the frontend
+
+## Without docker
+
+run `npx http-server . -p 3000` in the frontend directory
+
+
