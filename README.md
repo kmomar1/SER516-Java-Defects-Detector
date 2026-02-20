@@ -37,8 +37,21 @@ backend/
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| PORT     | Server port | 8080    |
+| Variable | Description  | Default |
+|----------|--------------|---------|
+| PORT     | Server port  | 8080    |
+| PORT     | Frontend Port| 3000    |
 
 # Frontend
+> [!NOTE]
+> For the frontend to work the backend must be running.
+
+
+## Docker
+
+run `compose up --build` to run both the backend and the frontend
+**Note** Port 3000 is needed to run the frontend
+
+
+
+
