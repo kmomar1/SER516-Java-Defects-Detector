@@ -52,8 +52,6 @@ backend/
 run `compose up --build` to run both the backend and the frontend
 **Note** Port 3000 is needed to run the frontend
 
-## Without docker
 
-run `npx http-server . -p 3000` in the frontend directory
 
 
