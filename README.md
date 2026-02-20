@@ -40,7 +40,7 @@ backend/
 | Variable | Description  | Default |
 |----------|--------------|---------|
 | PORT     | Server port  | 8080    |
-| PORT     | Frontend Port| 80      |
+| PORT     | Frontend Port| 3000    |
 
 # Frontend
 > [!NOTE]
@@ -50,7 +50,7 @@ backend/
 ## Docker
 
 run `compose up --build` to run both the backend and the frontend
-**Note** Port 80 is needed to run the frontend
+**Note** Port 3000 is needed to run the frontend
 
 ## Without docker
 
