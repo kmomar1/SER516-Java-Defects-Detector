@@ -12,7 +12,9 @@ Frontend here is a basic page with an input field to paste a GitHub repo URL to 
 - Navigate to the root of the project and make sure the docker-compose file is there
 - run `compose up --build` to run both the backend and the frontend
 - Open a browser and type http://localhost:3000 to access the frontend
-**Note** Port 3000 is needed to run the frontend and 8080 to run the backend
+
+> [!NOTE]
+> Port 3000 is needed to run the frontend and 8080 to run the backend
 
 
 
