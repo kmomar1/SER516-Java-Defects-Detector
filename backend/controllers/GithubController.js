@@ -14,7 +14,7 @@ export const cloneRepo = (req, res) => {
     shell.rm("-rf", repoPath);
     shell.mkdir("-p", path.dirname(reportPath));
 
-    if (shell.exec(`git clone "${githubLink}" "${repoPath}"`).code !== 0) {
+    if (shell.exec(`git clone ${githubLink} ${repoPath}`).code !== 0) {
       return res.status(400).json({ message: 'Failed to clone repository please make sure the URL is correct and the repo is public' });
     }
 
