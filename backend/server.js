@@ -5,7 +5,7 @@ import githubRoutes from "./routes/GithubRoutes.js"
 
 dotenv.config()
 
-const PORT = process.env.PORT || 8080 
+const PORT = process.env.PMD_PORT || 8080 
 const server = express()
 
 server.use(cors())
