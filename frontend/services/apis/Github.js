@@ -1,4 +1,4 @@
-import pmdHttp from "../../plugins/Http.js";
+import Http from "../../plugins/Http.js";
 
 export const cloneRepo = async (URL) => {
   const path = "/github/clone"
@@ -10,7 +10,7 @@ export const cloneRepo = async (URL) => {
   }
 
   try {
-    await pmdHttp(options)
+    await Http(options)
   }
   catch (error) {
     console.error("Failure in cloneRepo api call")
