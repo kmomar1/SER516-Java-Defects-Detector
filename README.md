@@ -13,6 +13,16 @@ Frontend here is a basic page with an input field to paste a GitHub repo URL to 
 - run `compose up --build` to run both the backend and the frontend
 - Open a browser and type http://localhost:3000 to access the frontend
 
+## Running Backend Tests
+
+```bash
+cd backend
+
+npm install
+
+npm test
+```
+
 > [!NOTE]
 > Port 3000 is needed to run the frontend and 8080 to run the backend
 
