@@ -109,4 +109,6 @@ pids/
 tmp/
 temp/
 target-repo/
+reports/
+repos/
 
