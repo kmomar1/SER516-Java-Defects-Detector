@@ -16,7 +16,7 @@ Frontend here is a basic page with an input field to paste a GitHub repo URL to 
 ## Running Backend Tests
 
 ```bash
-cd backend
+cd pmd
 
 npm install
 
@@ -24,7 +24,7 @@ npm test
 ```
 
 > [!NOTE]
-> Port 3000 is needed to run the frontend and 8080 to run the backend
+> Port 3000 is needed to run the frontend and 4000 to run the backend
 
 
 
