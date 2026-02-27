@@ -16,6 +16,27 @@ Frontend here is a basic page with an input field to paste a GitHub repo URL to 
 > [!NOTE]
 > Port 3000 is needed to run the frontend and 8080 to run the backend
 
+# API
 
+## Github clone API
+**POST API**
+`localhost:PORT/api/github/clone`
+body:
 
+`{"github_link": "https://github.com/nmoham46/SleekBoard.git"}`
 
+## PMD analyze 
+this api is used to run PMD on a local repo
+**POST API**
+`http://localhost:PORT/api/pmd/run-pmd`
+
+body:
+
+`{"repoPath": "./repos/ser516public.git"}`
+
+## Clone and run PMD analyze
+> this is a GET api beacuse it might be used with Prometheus in the future
+This api will clone a GitHub repo and run PMD analyze on it
+
+**GET API**
+`http://localhost:8080/api/pmd/analyze?github_link=`
