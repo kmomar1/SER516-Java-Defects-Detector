@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, beforeAll, vi } from "vitest";
 import request from "supertest";
 import fs from "fs";
 import os from "os";
@@ -28,6 +28,7 @@ describe("POST /api/github/clone", () => {
     let tmpDir;
     let app;
     let shelljs;
+    let originalCwd;
 
     beforeAll(async () => {
         // We need to import shelljs and app here to ensure the mocks are in place before the controller is loaded
@@ -36,13 +37,21 @@ describe("POST /api/github/clone", () => {
     });
 
     beforeEach(() => {
+        originalCwd = process.cwd();
         tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "ser516-backend-"));
         process.chdir(tmpDir);
         shelljs.exec.mockReset();
     });
 
-    afterEach(() => {
-        fs.rmSync(tmpDir, { recursive: true, force: true });
+    afterEach(async () => {
+        process.chdir(originalCwd)
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        try {
+            fs.rmSync(tmpDir, { recursive: true, force: true });
+        } catch (err) {
+            console.warn("Cleanup failed:", err.message);
+        }
     });
 
     it("returns 400 when github_link is missing", async () => {
