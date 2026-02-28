@@ -1,16 +1,8 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import githubRoutes from "./routes/GithubRoutes.js";
+import dotenv from "dotenv"
+import app from "./app.js";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4000;
-const server = express();
+const PORT = process.env.PORT || 4000 
 
-server.use(cors());
-server.use(express.json());
-
-server.use("/api/github", githubRoutes);
-
-server.listen(PORT, () => console.log(`Running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Running on port ${PORT}`))
