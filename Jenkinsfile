@@ -39,7 +39,12 @@ pipeline {
         stage('Run Backend Tests') {
             steps {
                 echo "Running backend unit tests..."
-                sh 'docker compose run --rm pmd npm test'
+                sh 'docker compose run --rm pmd npx vitest run --reporter=junit --outputFile=vitest-report.xml'
+            }
+            post {
+                always {
+                    junit 'vitest-report.xml'
+                }
             }
         }
 
