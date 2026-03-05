@@ -16,7 +16,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "vitest run",
+    "test": "vitest run --reporter=junit --outputFile=vitest-report.xml",
     "test:watch": "vitest"
   },
   "dependencies": {
