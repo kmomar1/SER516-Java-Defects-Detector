@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const StatSchema = new mongoose.Schema({
-  capacity : Number,
+  workCapacity : Number,
   velocity : Number,
   scannedAt: {
     type: Date,
