@@ -1,39 +1,66 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
+import Stat from "../models/StatModel.js";
 
-/*
-Focus Factor = resolved issues / total issues
-             = Completed story points / Total story points
-Since implementation does not exist yet,
-we write tests FIRST (TDD approach).
-*/
+vi.mock("../models/Stat.js");
 
-describe("Focus Factor Metric", () => {
+describe("createStat controller", () => {
 
-  it("should return 1 when all issues are resolved", () => {
-    const resolved = 10;
-    const total = 10;
+  it("should create a stat and return 201", async () => {
 
-    const focusFactor = resolved / total;
+    const req = {
+      body: {
+        velocity: 40,
+        workCapacity: 50
+      }
+    };
 
-    expect(focusFactor).toBe(1);
+    const json = vi.fn();
+    const status = vi.fn(() => ({ json }));
+
+    const res = {
+      status
+    };
+
+    const savedStat = {
+      _id: "123",
+      velocity: 40,
+      workCapacity: 50
+    };
+
+    Stat.mockImplementation(() => ({
+      save: vi.fn().mockResolvedValue(savedStat)
+    }));
+
+    await createStat(req, res);
+
+    expect(status).toHaveBeenCalledWith(201);
+    expect(json).toHaveBeenCalledWith(savedStat);
   });
 
-  it("should return 0 when no issues are resolved", () => {
-    const resolved = 0;
-    const total = 10;
+  it("should return 500 if error occurs", async () => {
 
-    const focusFactor = resolved / total;
+    const req = {
+      body: {
+        velocity: 40,
+        workCapacity: 50
+      }
+    };
 
-    expect(focusFactor).toBe(0);
-  });
+    const json = vi.fn();
+    const status = vi.fn(() => ({ json }));
 
-  it("should return correct fraction when some issues are resolved", () => {
-    const resolved = 3;
-    const total = 10;
+    const res = {
+      status
+    };
 
-    const focusFactor = resolved / total;
+    Stat.mockImplementation(() => ({
+      save: vi.fn().mockRejectedValue(new Error("DB Error"))
+    }));
 
-    expect(focusFactor).toBe(0.3);
+    await createStat(req, res);
+
+    expect(status).toHaveBeenCalledWith(500);
+    expect(json).toHaveBeenCalledWith({ error: "DB Error" });
   });
 
 });
