@@ -10,3 +10,5 @@ const router = Router();
 router.post("/stats", createFocusFactor);
 router.get("/stats", getStats);
 router.get("/focus-factor", getFocusFactor);
+
+export default router
