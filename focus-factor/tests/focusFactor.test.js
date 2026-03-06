@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import Stat from "../models/StatModel.js"
 
 /*
 Focus Factor = resolved issues / total issues
@@ -7,48 +8,49 @@ Since implementation does not exist yet,
 we write tests FIRST (TDD approach).
 */
 
-vi.mock("../models/Stat.js");
+vi.mock("../models/StatModel.js");
 
-describe("createStat controller", () => {
+describe("createFocusFactor", () => {
 
-  it("should create a stat and return 201", async () => {
+  it("should create a focus factor and return 201", async () => {
 
     const req = {
       body: {
-        repository: "test-repo",
-        defects: 3
+        velocity: 40,
+        workCapacity: 50
       }
     };
 
     const json = vi.fn();
-    const status = vi.fn(() => ({ json }));
+    const focusFactor = vi.fn(() => ({ json }));
 
     const res = {
-      status
+      focusFactor
     };
 
-    const savedStat = {
-      _id: "123",
-      repository: "test-repo",
-      defects: 3
+    const savedFocusFactor = {
+      _id: "abc123",
+      velocity: 40,
+      workCapacity: 50
     };
 
     Stat.mockImplementation(() => ({
-      save: vi.fn().mockResolvedValue(savedStat)
+      save: vi.fn().mockResolvedValue(savedFocusFactor)
     }));
 
-    await createStat(req, res);
+    await createFocusFactor(req, res);
 
     expect(status).toHaveBeenCalledWith(201);
-    expect(json).toHaveBeenCalledWith(savedStat);
+    expect(json).toHaveBeenCalledWith(savedFocusFactor);
   });
 
-  it("should return 500 if error occurs", async () => {
+
+  it("should return 500 if save fails", async () => {
 
     const req = {
       body: {
-        repository: "test-repo",
-        defects: 3
+        velocity: 40,
+        workCapacity: 50
       }
     };
 
@@ -60,44 +62,13 @@ describe("createStat controller", () => {
     };
 
     Stat.mockImplementation(() => ({
-      save: vi.fn().mockRejectedValue(new Error("DB Error"))
+      save: vi.fn().mockRejectedValue(new Error("Database error"))
     }));
 
-    await createStat(req, res);
+    await createFocusFactor(req, res);
 
     expect(status).toHaveBeenCalledWith(500);
-    expect(json).toHaveBeenCalledWith({ error: "DB Error" });
-  });
-
-});
-
-describe("Focus Factor Metric", () => {
-
-  it("should return 1 when all issues are resolved", () => {
-    const resolved = 10;
-    const total = 10;
-
-    const focusFactor = resolved / total;
-
-    expect(focusFactor).toBe(1);
-  });
-
-  it("should return 0 when no issues are resolved", () => {
-    const resolved = 0;
-    const total = 10;
-
-    const focusFactor = resolved / total;
-
-    expect(focusFactor).toBe(0);
-  });
-
-  it("should return correct fraction when some issues are resolved", () => {
-    const resolved = 3;
-    const total = 10;
-
-    const focusFactor = resolved / total;
-
-    expect(focusFactor).toBe(0.3);
+    expect(json).toHaveBeenCalledWith({ error: "Database error" });
   });
 
 });
