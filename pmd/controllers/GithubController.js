@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import shell from 'shelljs';
 import { runPMD } from '../pmdRunner.js';
-import { stderr } from 'process';
 
 
 export const cloneRepo = (req, res) => {

@@ -1,14 +1,9 @@
-import { Router } from "express";
-import {
-  createFocusFactor,
-  getStats,
-  getFocusFactor,
-} from "../controllers/CrudController.js";
+import { Router } from "express"
+import { getStats, updateStat } from "../controllers/CrudController.js";
 
-const router = Router();
+const router = Router()
 
-router.post("/stats", createFocusFactor);
 router.get("/stats", getStats);
-router.get("/focus-factor", getFocusFactor);
+router.put("/stats/:id", updateStat);
 
 export default router

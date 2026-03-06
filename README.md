@@ -3,7 +3,7 @@
 ## Run Frontend + Backend (Docker)
 
 ### Requirements
-
+- Jenkins test
 - Docker Desktop installed and running
 
 ### Start

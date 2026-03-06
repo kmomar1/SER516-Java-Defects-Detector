@@ -28,24 +28,13 @@ export const getStats = async (req, res) => {
   }
 };
 
-// Read and calcualte focus factor
-export const getFocusFactor = async (req, res) => {
+// UPDATE
+export const updateStat = async (req, res) => {
   try {
-    const stats = await Stat.find();
-
-    const totalScans = stats.length;
-
-    const totalDefects = stats.reduce((sum, stat) => sum + stat.defects, 0);
-
-    // Focus Factor = resolved / total
-    // Using scans as resolved and total defects as total issues
-    const focusFactor = totalScans / totalDefects;
-
-    res.status(200).json({
-      focusFactor,
-      totalScans,
-      totalDefects,
-    });
+    const { id } = req.params;
+    const updated = await Stat.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updated) return res.status(404).json({ error: "Stat not found" });
+    res.status(200).json(updated);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
