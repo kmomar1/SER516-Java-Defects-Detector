@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import Stat from "../../mongo/models/StatModel.js";
 import { deletStatbyId } from "../../mongo/controllers/CrudController.js";
+import Stat from "../../mongo/models/StatModel.js";
 
 vi.mock("../../mongo/models/StatModel.js");
 
