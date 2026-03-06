@@ -1,18 +1,11 @@
-import { describe, it, expect } from "vitest";
-import Stat from "../models/StatModel.js"
+import { describe, it, expect, vi } from "vitest";
+import Stat from "../models/StatModel.js";
 
-/*
-Focus Factor = resolved issues / total issues
-             = Completed story points / Total story points
-Since implementation does not exist yet,
-we write tests FIRST (TDD approach).
-*/
+vi.mock("../models/Stat.js");
 
-vi.mock("../models/StatModel.js");
+describe("createStat controller", () => {
 
-describe("createFocusFactor", () => {
-
-  it("should create a focus factor and return 201", async () => {
+  it("should create a stat and return 201", async () => {
 
     const req = {
       body: {
@@ -22,30 +15,29 @@ describe("createFocusFactor", () => {
     };
 
     const json = vi.fn();
-    const focusFactor = vi.fn(() => ({ json }));
+    const status = vi.fn(() => ({ json }));
 
     const res = {
-      focusFactor
+      status
     };
 
-    const savedFocusFactor = {
-      _id: "abc123",
+    const savedStat = {
+      _id: "123",
       velocity: 40,
       workCapacity: 50
     };
 
     Stat.mockImplementation(() => ({
-      save: vi.fn().mockResolvedValue(savedFocusFactor)
+      save: vi.fn().mockResolvedValue(savedStat)
     }));
 
-    await createFocusFactor(req, res);
+    await createStat(req, res);
 
     expect(status).toHaveBeenCalledWith(201);
-    expect(json).toHaveBeenCalledWith(savedFocusFactor);
+    expect(json).toHaveBeenCalledWith(savedStat);
   });
 
-
-  it("should return 500 if save fails", async () => {
+  it("should return 500 if error occurs", async () => {
 
     const req = {
       body: {
@@ -62,13 +54,13 @@ describe("createFocusFactor", () => {
     };
 
     Stat.mockImplementation(() => ({
-      save: vi.fn().mockRejectedValue(new Error("Database error"))
+      save: vi.fn().mockRejectedValue(new Error("DB Error"))
     }));
 
-    await createFocusFactor(req, res);
+    await createStat(req, res);
 
     expect(status).toHaveBeenCalledWith(500);
-    expect(json).toHaveBeenCalledWith({ error: "Database error" });
+    expect(json).toHaveBeenCalledWith({ error: "DB Error" });
   });
 
 });
