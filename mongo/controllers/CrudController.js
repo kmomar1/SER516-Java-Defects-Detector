@@ -24,3 +24,18 @@ export const updateStat = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// DELETE
+export const deletStatbyId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await Stat.findByIdAndDelete(id);
+
+    if (!deleted) return res.status(404).json({ error: "Stat not found" });
+    
+    res.status(200).json(deleted);
+  } 
+  catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
