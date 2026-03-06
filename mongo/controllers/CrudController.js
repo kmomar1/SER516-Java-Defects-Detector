@@ -1,7 +1,22 @@
 import Stat from "../models/StatModel.js";
+import StatSchema from "../models/StatModel.js";
 
-// CREATE
+export const createFocusFactor = async (req, res) => {
+  try {
+    const { velocity, workCapacity } = req.body;
 
+    const stat = new StatSchema({
+      velocity,
+      workCapacity,
+    });
+
+    const saved = await stat.save();
+
+    res.status(201).json(saved);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 // READ (GET ALL STATS)
 export const getStats = async (req, res) => {
