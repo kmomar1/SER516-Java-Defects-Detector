@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import mongoose from "mongoose";
+import crudRoutes from "./routes/CrudRoutes.js";
 
 dotenv.config()
 
@@ -10,6 +11,8 @@ const server = express()
 
 server.use(cors())
 server.use(express.json())
+
+server.use("/api", crudRoutes);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
