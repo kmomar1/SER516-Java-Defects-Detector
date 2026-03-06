@@ -6,7 +6,7 @@ import crudRoutes from "./routes/CrudRoutes.js";
 
 dotenv.config()
 
-const PORT = process.env.PORT || 8081
+const PORT = process.env.PORT || 4001
 const server = express()
 
 server.use(cors())
