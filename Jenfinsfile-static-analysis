@@ -32,19 +32,6 @@ pipeline {
             }
         }
 
-        // -------------------------------------------------------
-        // Optional Stage: Uncomment and customize to experiment!
-        // -------------------------------------------------------
-        // stage('My Custom Stage') {
-        //     steps {
-        //         dir('project-tools/jenkins-examples/Example_3') {
-        //             // sh 'echo "Hello from my custom stage!"'
-        //             // sh 'poetry run pytest tests/test_greeter.py::TestGreeter::test_greet_formal -v -s'
-        //         }
-        //     }
-        // }
-        // -------------------------------------------------------
-
     }
 
     post {
