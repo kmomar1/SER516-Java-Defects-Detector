@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getStats, getFocusFactor } from "../controllers/CrudController.js";
+import { getStats } from "../controllers/CrudController.js";
 
 const router = Router()
 
