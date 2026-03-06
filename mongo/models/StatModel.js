@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-const FocusFactorSchema = new mongoose.Schema({
-  velocity: Number,
-  workCapacity: Number,
+const StatSchema = new mongoose.Schema({
+  workCapacity : Number,
+  velocity : Number,
   scannedAt: {
     type: Date,
-    default: Date.now,
-  },
+    default: Date.now
+  }
 });
 
-export default mongoose.model("FocusFactor", FocusFactorSchema);
+export default mongoose.model("Stat", StatSchema);
