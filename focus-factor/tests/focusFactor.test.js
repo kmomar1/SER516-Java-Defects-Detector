@@ -7,6 +7,70 @@ Since implementation does not exist yet,
 we write tests FIRST (TDD approach).
 */
 
+vi.mock("../models/Stat.js");
+
+describe("createStat controller", () => {
+
+  it("should create a stat and return 201", async () => {
+
+    const req = {
+      body: {
+        repository: "test-repo",
+        defects: 3
+      }
+    };
+
+    const json = vi.fn();
+    const status = vi.fn(() => ({ json }));
+
+    const res = {
+      status
+    };
+
+    const savedStat = {
+      _id: "123",
+      repository: "test-repo",
+      defects: 3
+    };
+
+    Stat.mockImplementation(() => ({
+      save: vi.fn().mockResolvedValue(savedStat)
+    }));
+
+    await createStat(req, res);
+
+    expect(status).toHaveBeenCalledWith(201);
+    expect(json).toHaveBeenCalledWith(savedStat);
+  });
+
+  it("should return 500 if error occurs", async () => {
+
+    const req = {
+      body: {
+        repository: "test-repo",
+        defects: 3
+      }
+    };
+
+    const json = vi.fn();
+    const status = vi.fn(() => ({ json }));
+
+    const res = {
+      status
+    };
+
+    Stat.mockImplementation(() => ({
+      save: vi.fn().mockRejectedValue(new Error("DB Error"))
+    }));
+
+    await createStat(req, res);
+
+    expect(status).toHaveBeenCalledWith(500);
+    expect(json).toHaveBeenCalledWith({ error: "DB Error" });
+  });
+
+});
+
 describe("Focus Factor Metric", () => {
 
   it("should return 1 when all issues are resolved", () => {
