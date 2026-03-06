@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createFocusFactor } from "../../mongo/controllers/foucsFactorController.js";
-import FocusFactor from "../../mongo/models/StatModel.js";
+import Stat from "../../mongo/models/StatModel.js";
 
 describe("createFocusFactor", () => {
   let req, res;
@@ -21,7 +21,7 @@ describe("createFocusFactor", () => {
 
   it("should create a focus factor and return 201", async () => {
     // Spy on the instance save method
-    vi.spyOn(FocusFactor.prototype, "save").mockResolvedValue({
+    vi.spyOn(Stat.prototype, "save").mockResolvedValue({
       velocity: 30,
       workCapacity: 40,
     });
@@ -36,7 +36,7 @@ describe("createFocusFactor", () => {
   });
 
   it("should return 500 if save fails", async () => {
-    vi.spyOn(FocusFactor.prototype, "save").mockRejectedValue(
+    vi.spyOn(Stat.prototype, "save").mockRejectedValue(
       new Error("Database error"),
     );
 
