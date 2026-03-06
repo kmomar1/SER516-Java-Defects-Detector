@@ -1,13 +1,13 @@
 import Stat from "../models/StatModel.js";
+import FocusFactorSchema from "../models/StatModel.js";
 
-// CREATE
-export const createStat = async (req, res) => {
+export const createFocusFactor = async (req, res) => {
   try {
-    const { repository, defects } = req.body;
+    const { velocity, workCapacity } = req.body;
 
-    const stat = new Stat({
-      repository,
-      defects
+    const stat = new FocusFactorSchema({
+      velocity,
+      workCapacity,
     });
 
     const saved = await stat.save();
@@ -17,7 +17,6 @@ export const createStat = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 // READ (GET ALL STATS)
 export const getStats = async (req, res) => {
@@ -32,7 +31,6 @@ export const getStats = async (req, res) => {
 // Read and calcualte focus factor
 export const getFocusFactor = async (req, res) => {
   try {
-
     const stats = await Stat.find();
 
     const totalScans = stats.length;
@@ -46,9 +44,8 @@ export const getFocusFactor = async (req, res) => {
     res.status(200).json({
       focusFactor,
       totalScans,
-      totalDefects
+      totalDefects,
     });
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
