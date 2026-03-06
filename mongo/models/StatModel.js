@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const StatSchema = new mongoose.Schema({
-  repository: String,
-  defects: Number,
+  capacity : Number,
+  velocity : Number,
   scannedAt: {
     type: Date,
     default: Date.now
