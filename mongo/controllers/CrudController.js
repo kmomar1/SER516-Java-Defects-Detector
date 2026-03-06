@@ -1,11 +1,11 @@
 import Stat from "../models/StatModel.js";
-import FocusFactorSchema from "../models/StatModel.js";
+import StatSchema from "../models/StatModel.js";
 
 export const createFocusFactor = async (req, res) => {
   try {
     const { velocity, workCapacity } = req.body;
 
-    const stat = new FocusFactorSchema({
+    const stat = new StatSchema({
       velocity,
       workCapacity,
     });
