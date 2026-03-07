@@ -43,7 +43,7 @@ example json body for focus factor create and update stat:
 
 ## PMD + frontend With Docker
 
-**Only the pmd and frontend work with docker, Mongo, the unit tests and static anlysis have not been configured**
+**Only the pmd and frontend work with docker - Mongo, the unit tests and static analysis have not been configured**
 - Navigate to the root of the project and make sure the docker-compose file is there
 - run `docker compose up --build` to run both pmd and the frontend
 - Open a browser and type http://localhost:80 to access the frontend
@@ -58,6 +58,15 @@ post `/api/github/clone`
 
 take in a json body of this format:
 { github_link: "URL" }
+
+## PMD
+- You can run pmd locally as well
+
+```bash
+npm install
+
+npm run start
+```
 
 
 ## Frontend
