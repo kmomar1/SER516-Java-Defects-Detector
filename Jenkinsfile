@@ -49,12 +49,12 @@ pipeline {
 		// 	}
 		// }
 
-		stage('Deploy Application') {
-			steps {
-				echo "Starting application..."
-				sh 'docker compose up -d'
-			}
-		}
+		// stage('Deploy Application') {
+		// 	steps {
+		// 		echo "Starting application..."
+		// 		sh 'docker compose up -d'
+		// 	}
+		// }
 
 		stage('Run Vitest') {
 			steps {
