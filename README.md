@@ -1,72 +1,25 @@
 # SER516 Java Defects Detector
 
-## Run Frontend + Backend (Docker)
+## Backend
+- We have 2 micro services
+   - pmd (defect analyzer)
+   - mongo (database)
 
-### Requirements
-- Jenkins test
-- Docker Desktop installed and running
-
-### Start
-
-```bash
-docker compose up --build
-```
-
-### URLs
-
-- Frontend UI: `http://localhost:3000`
-
-- Backend API: `http://localhost:4000/api`
-
-### Notes
-
-- Frontend is served by nginx in a container.
-
-- nginx proxies `/api/*` requests to the backend container.
-
-# Backend
-
-Backend server for the Java Defects Detector application, built with Node.js and Express.
-
-# Frontend
-
-Frontend here is a basic page with an input field to paste a GitHub repo URL to analyze
-
-## Docker (Recommended Approach to Run Project)
-
-**Mongo doesn't work with Docker**
-- Navigate to the root of the project and make sure the docker-compose file is there
-- run `compose up --build` to run both the backend and the frontend
-- Open a browser and type http://localhost:3000 to access the frontend
-
-## Running Unit Tests
-
-```bash
-
-npm install
-
-npm test
-```
-
-> [!NOTE]
-> Port 3000 is needed to run the frontend and 4000 to run the backend
-
-## Mongo API
+## Mongo
 
 ### How to run Mongo
 
 ```bash
 cd mongo
 
-npm i
+npm install
 
 npm run start
 
 ```
+### endpoints
 
-### Mongo endpoints
-
-#### stats
+#### stats (Focus factor entry)
 
 gets all stats
 get `/api/stat `
@@ -74,17 +27,81 @@ get `/api/stat `
 create stat
 post `/api/stat`
 
-example:
-```JSON
-{
-  "workCapacity": 80,
-  "velocity": 45
-}
-```
-
 update stat
 put `/api/stat/:id`
 
 delete stat
 delete `/api/stat/:id`
 
+example json body for focus factor create and update stat:
+```JSON
+{
+  _id: 121212
+  "workCapacity": 80,
+  "velocity": 45
+}
+```
+
+## PMD + frontend With Docker
+
+**Only the pmd and frontend work with docker, Mongo, the unit tests and static anlysis have not been configured**
+- Navigate to the root of the project and make sure the docker-compose file is there
+- run `docker compose up --build` to run both pmd and the frontend
+- Open a browser and type http://localhost:80 to access the frontend
+- Enter the repo url that you want to analyze
+
+> [!NOTE]
+> This is the same from last sprint, the results are only returned in the api response and not shown in the frontend. This will be later integrated with grafana at a future sprint
+
+### Pmd enpoints:
+Run pmd analysis
+post `/api/github/clone`
+
+take in a json body of this format:
+{ github_link: "URL" }
+
+
+## Frontend
+- The frontend here just a page to enter a github repo link that pmd analyzes. It is not the main dashboard used for any actual UI or statistics
+
+### How to run front local
+
+```bash
+cd frontend
+
+npx http-server -p 80 (or any port you want)
+
+```
+Then just open the browser at localhost:80
+
+
+## Running Unit Tests
+- We have unit tests for the pmd and mongo crud services
+- To run the unit tests make sure you are in the root of the project and follow these commands
+
+```bash
+npm install
+
+npm run test
+```
+
+## Running Static Analysis
+- We are using eslint to run static analysis on all the project files
+- To run, make sure you are in the root of the project and follow these command
+
+```bash
+npm install
+
+npm run lint
+```
+Any errors or warning should appear
+
+
+## Note
+
+> [!NOTE]
+> Port 80 is needed to run the frontend
+> Port 4000 to run pmd
+> Port 4001 to run mongo
+
+Any of these ports can be changed if needed from each corresponding env file
