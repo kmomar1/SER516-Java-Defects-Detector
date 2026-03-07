@@ -19,7 +19,7 @@ export const cloneRepo = (req, res) => {
       return res.status(400).json({ message: "Missing github_link in request body" });
     }
 
-    const gitCloneResult = shell.exec(`git clone ${githubLink} ${repoPath}`, { silent: true });
+    const gitCloneResult = shell.exec(`git clone "${githubLink}" "${repoPath}"`, { silent: true });
     if (gitCloneResult.code !== 0) {
       return res.status(400).json({
         message: 'Failed to clone repository please make sure the URL is correct and the repo is public',
