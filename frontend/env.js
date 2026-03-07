@@ -1,5 +1,5 @@
 const ENV = {
-  BASE_URL: window.location.origin,
+  PMD_BASE_URL: "http://localhost:4000",
 };
 
 export default ENV;
