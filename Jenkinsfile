@@ -59,7 +59,7 @@ pipeline {
 		stage('Run Vitest') {
 			steps {
 				echo "Running vitest unit tests..."
-				sh 'npx vitest run'
+				sh 'npm run test'
 			}
 		}
 	}
