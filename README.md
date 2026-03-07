@@ -5,6 +5,7 @@
    - pmd (defect analyzer)
    - mongo (database)
 
+
 ## Mongo
 
 ### How to run Mongo
@@ -17,8 +18,8 @@ npm install
 npm run start
 
 ```
-### endpoints
 
+### endpoints
 #### stats (Focus factor entry)
 
 gets all stats
@@ -40,6 +41,7 @@ example json body for focus factor create and update stat:
   "velocity": 45
 }
 ```
+
 
 ## PMD + frontend With Docker
 
@@ -106,6 +108,13 @@ npm install
 npm run lint
 ```
 Any errors or warning should appear
+
+
+## Jenkins
+- We have automation pipelines set to run the static analysis and unit tests whenever there is a push on the US, Sprint or main branches
+- To access Jenkins use this link: https://swent0linux.asu.edu/jenkins/job/Group-7/
+- The Static analysis pipeline is called: *Static Analysis on Express Server*
+- The Unit tests pipeline is called: *Main_Pipeline_Vitest*
 
 
 ## Note
