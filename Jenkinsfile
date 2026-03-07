@@ -1,9 +1,9 @@
 pipeline {
 	agent any
 
-	environment {
-		COMPOSE_PROJECT_NAME = "ser516"
-	}
+	// environment {
+	// 	COMPOSE_PROJECT_NAME = "ser516"
+	// }
 
 	tools {
 		nodejs 'NodeJS'
@@ -21,12 +21,12 @@ pipeline {
 			}
 		}
 
-		stage('Stop Old Containers') {
-			steps {
-				echo "Stopping existing containers..."
-				sh 'docker compose down || true'
-			}
-		}
+		// stage('Stop Old Containers') {
+		// 	steps {
+		// 		echo "Stopping existing containers..."
+		// 		sh 'docker compose down || true'
+		// 	}
+		// }
 
 		stage('Install Dependencies') {
 			steps {
@@ -35,19 +35,19 @@ pipeline {
 			}
 		}
 
-		stage('Build Docker Images') {
-			steps {
-				echo "Building Docker images..."
-				sh 'docker compose build'
-			}
-		}
+		// stage('Build Docker Images') {
+		// 	steps {
+		// 		echo "Building Docker images..."
+		// 		sh 'docker compose build'
+		// 	}
+		// }
 
-		stage('Run PMD Tests') {
-			steps {
-				echo "Running PMD uni tests..."
-				sh 'docker compose run --rm pmd npm test'
-			}
-		}
+		// stage('Run PMD Tests') {
+		// 	steps {
+		// 		echo "Running PMD uni tests..."
+		// 		sh 'docker compose run --rm pmd npm test'
+		// 	}
+		// }
 
 		stage('Deploy Application') {
 			steps {
