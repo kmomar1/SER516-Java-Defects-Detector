@@ -61,8 +61,11 @@ take in a json body of this format:
 
 ## PMD
 - You can run pmd locally as well
+- Make sure you have the pmd instance installed locally, if not then just use the docker method above
 
 ```bash
+cd pmd
+
 npm install
 
 npm run start
