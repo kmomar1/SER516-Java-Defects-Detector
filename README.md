@@ -36,7 +36,6 @@ delete `/api/stat/:id`
 example json body for focus factor create and update stat:
 ```JSON
 {
-  _id: 121212
   "workCapacity": 80,
   "velocity": 45
 }
@@ -100,8 +99,8 @@ Any errors or warning should appear
 ## Note
 
 > [!NOTE]
-> Port 80 is needed to run the frontend
-> Port 4000 to run pmd
-> Port 4001 to run mongo
+> - Port 80 is needed to run the frontend
+> - Port 4000 to run pmd
+> - Port 4001 to run mongo
 
 Any of these ports can be changed if needed from each corresponding env file
