@@ -1,68 +1,80 @@
 pipeline {
-    agent any
+	agent any
 
-    triggers {
-        pollSCM('H/2 * * * *')
-    }
+	environment {
+		COMPOSE_PROJECT_NAME = "ser516"
+	}
 
-    environment {
-        COMPOSE_PROJECT_NAME = "ser516"
-    }
+	tools {
+		nodejs 'NodeJS'
+	}
 
-    options {
-        timestamps()
-    }
+	options {
+		timestamps()
+	}
 
-    stages {
+	stages {
+		stage('Checkout') {
+			steps {
+				echo "Checking out source code..."
+				checkout scm
+			}
+		}
 
-        stage('Checkout') {
-            steps {
-                echo "Checking out source code..."
-                checkout scm
-            }
-        }
+		stage('Stop Old Containers') {
+			steps {
+				echo "Stopping existing containers..."
+				sh 'docker compose down || true'
+			}
+		}
 
-        stage('Stop Old Containers') {
-            steps {
-                echo "Stopping existing containers..."
-                sh 'docker compose down || true'
-            }
-        }
+		stage('Install Dependencies') {
+			steps {
+				echo "Installing npm dependencies..."
+				sh 'npm install'
+			}
+		}
 
-        stage('Build Docker Images') {
-            steps {
-                echo "Building Docker images..."
-                sh 'docker compose build'
-            }
-        }
+		stage('Build Docker Images') {
+			steps {
+				echo "Building Docker images..."
+				sh 'docker compose build'
+			}
+		}
 
-        stage('Run Backend Tests') {
-            steps {
-                echo "Running backend unit tests..."
-                sh 'docker compose run --rm pmd npm test'
-            }
-        }
+		stage('Run PMD Tests') {
+			steps {
+				echo "Running PMD uni tests..."
+				sh 'docker compose run --rm pmd npm test'
+			}
+		}
 
-        stage('Deploy Application') {
-            steps {
-                echo "Starting application..."
-                sh 'docker compose up -d'
-            }
-        }
-    }
+		stage('Deploy Application') {
+			steps {
+				echo "Starting application..."
+				sh 'docker compose up -d'
+			}
+		}
 
-    post {
+		stage('Run Vitest') {
+			steps {
+				echo "Running vitest unit tests..."
+				sh 'npx vitest run'
+			}
+		}
+	}
 
-        success {
-            echo "Build succeeded. Application deployed successfully."
-        }
+	post {
+		success {
+			echo "Build succeeded. Application deployed successfully."
+		}
 
-        failure {
-            echo "Build failed. Fix defects before merging."
-        }
+		failure {
+			echo "Build failed. Fix defects before merging."
+		}
 
-        always {
-            echo "Pipeline execution completed."
-        }
-    }
+		always {
+			echo "Pipeline execution completed."
+		}
+	}
 }
